@@ -25,3 +25,7 @@ permissions:
         description: shows how much damage was dealt wit what
       demo.prepare:
         description: equip yourself
+      demo.enchantment:
+        description: enchant a new diamond sword
+      demo.rain:
+        description: makes it rain

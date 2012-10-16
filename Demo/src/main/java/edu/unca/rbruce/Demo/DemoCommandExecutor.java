@@ -8,6 +8,8 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
@@ -75,7 +77,26 @@ public class DemoCommandExecutor implements CommandExecutor {
 				fred.setItemInHand(myItem);
 				plugin.logger.info("Successfully ran 'prepare'");	
 			return true;
-			
+		} else if (args[0].equalsIgnoreCase("enchantment") 
+					&& sender.hasPermission("demo.enchantment")) {			
+					Player fred = (Player) sender;
+					int itemCode = 276;
+					int effectId = 16;
+					int enchantmentLevel = 5;					 
+					ItemStack myItem = new ItemStack(itemCode);
+					Enchantment myEnchantment = new EnchantmentWrapper(effectId);
+					myItem.addEnchantment(myEnchantment, enchantmentLevel);
+					fred.setItemInHand(myItem);
+					sender.sendMessage(ChatColor.RED + "You have a new enchanted diamond sword!");
+					plugin.logger.info("Successfully provided an enchanted sword to " + fred);	
+				return true;
+		} else if (args[0].equalsIgnoreCase("rain") 
+						&& sender.hasPermission("demo.rain")) {			
+						Player fred = (Player) sender;
+			        	sender.sendMessage("It is now raining");
+			        	fred.getWorld().setStorm(true);
+			        	plugin.logger.info(fred + " made it rain on the server");
+			        	return true;	
 		} else if (args[0].equalsIgnoreCase("kick")
 				&& sender.hasPermission("demo.kick")) {
 			Player fred = plugin.getServer().getPlayer(args[1]);
